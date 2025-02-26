@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tra cứu thông tin đào tạo</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../header/header.css">
+    <link rel="stylesheet" href="../footer/footer.css">
+    <link rel="stylesheet" href="../menu/menu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+
+        #main-title {
+            color: #344767;
+            text-align: center;
+            margin: 20px 0 5px; /* Reduced margin */
+            font-size: 1.8em; /* Slightly smaller */
+            font-weight: 600;
+        }
+
+        #instruction-text {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px; /* Reduced margin */
+            font-size: 0.9em; /* Smaller text */
+        }
+
+        #searchForm {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            max-width: 500px; /* Limit maximum width */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #searchText {
+            padding: 8px 12px; /* Reduced padding */
+            width: 200px; /* Fixed smaller width */
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        #searchText:focus {
+            border-color: #0056b3;
+            outline: none;
+        }
+
+        #search-button {
+            padding: 8px 15px; /* Reduced padding */
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        #search-button:hover {
+            background-color: #003d82;
+            transform: translateY(-2px);
+        }
+
+        #employee-info {
+            margin: 20px auto; /* Center align */
+            padding: 15px;
+            max-width: 800px; /* Limit maximum width */
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #info-table, #search-results {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        #info-table {
+            font-size: 0.9em; /* Slightly smaller text */
+            width: 100%;
+        }
+
+        #info-table th, #search-results th {
+            background-color: #f8f9fa;
+            color: #344767;
+            padding: 10px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        #info-table td, #search-results td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #dee2e6;
+            color: #000000;
+        }
+
+        #search-results tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0056b3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .filters-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .filters-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-item {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-item label {
+            display: block;
+            margin-bottom: 5px;
+            color: #344767;
+            font-weight: 600;
+        }
+
+        .filter-item select,
+        .filter-item input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .filter-item.date-range {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-item.date-range label {
+            margin-top: 10px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .filter-button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .apply-filter {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        .reset-filter {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .filter-button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        #search-results {
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .table-container {
+            margin-top: 15px;
+            overflow-x: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div id="header-container"></div>
+        <div id="menu-container"></div>
+
+        <div id="content-wrapper">
+            <h1 id="main-title">TRA CỨU THÔNG TIN ĐÀO TẠO</h1>
+            <p id="instruction-text">(Nhân viên nhập họ và tên vào ô tìm kiếm để tra cứu)</p>
+            
+             <form id="searchForm">
+                <input type="text" id="searchText" placeholder="Gõ mã số nhân viên..." required />
+                <button type="submit" id="search-button">Tìm thông tin</button>
+            </form>
+
+            <div id="loading-spinner" style="display: none;">
+                <div class="spinner"></div>
+            </div>
+
+            <div id="employee-info" style="display: none;">
+                <table id="info-table">
+                    <tr>
+                        <th>TÊN NHÂN VIÊN</th>
+                        <th>MÃ NHÂN VIÊN</th>
+                        <th>CHỨC DANH</th>
+                    </tr>
+                    <tr>
+                        <td id="employee-name"></td>
+                        <td id="employee-id"></td>
+                        <td id="employee-position"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="filters-container">
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="subject-filter">Môn học:</label>
+                        <select id="subject-filter">
+                            <option value="">Tất cả</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="evaluation-filter">Đánh giá:</label>
+                        <select id="evaluation-filter">
+                            <option value="">Tất cả</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="validity-filter">Hiệu lực:</label>
+                        <select id="validity-filter">
+                            <option value="">Tất cả</option>
+                            <option value="Con han">Còn hạn</option>
+                            <option value="Het han">Hết hạn</option>
+                        </select>
+                    </div>
+                    <div class="filter-group date-range">
+                        <label for="date-start">Từ ngày:</label>
+                        <input type="date" id="date-start">
+                        <label for="date-end">Đến ngày:</label>
+                        <input type="date" id="date-end">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wrap table in scrollable container -->
+            <div class="table-container">
+                <table id="search-results">
+                    <thead>
+                        <tr>
+                            <th>Môn Học</th>
+                            <th>Lần Thi</th>
+                            <th>Điểm Bài Thi</th>
+                            <th>Đánh Giá</th>
+                            <th>Ngày Thực Hiện</th>
+                            <th>Hiệu Lực</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="footer-container"></div>
+    </div>
+
+    <!-- Chèn các script cần thiết -->
+    <script src="../menu/menu.js"></script>
+    <script>
+        // Load header
+        function loadHeader() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '../header/header.html', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('header-container').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        // Load menu
+        function loadMenu() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '../menu/menu.html', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('menu-container').innerHTML = xhr.responseText;
+                    attachMenuEvents(); // Attach menu events after loading
+                }
+            };
+            xhr.send();
+        }
+
+        // Load footer
+        function loadFooter() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '../footer/footer.html', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('footer-container').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        // Initialize components
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHeader();
+            loadMenu();
+            loadFooter();
+        });
+    </script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

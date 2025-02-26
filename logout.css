@@ -1,0 +1,44 @@
+/* Định dạng cho phần logout */
+#user-info {
+    display: flex;
+    gap: 15px; /* Khoảng cách giữa username và logout */
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+#username {
+    color: white;
+    text-decoration: underline;
+}
+
+#logout {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Vòng tròn xoay (spinner) */
+#loading-spinner {
+    border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid #3498db;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 10px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive cho user info */
+@media (max-width: 768px) {
+    #user-info {
+        gap: 10px;
+        right: 10px;
+        top: 10px;
+    }
+}

@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="chart.css">
+<div class="pie-chart-container" style="height: 100%; width: 100%;">
+    <canvas id="testCompletionChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function updateTestChart(completedTests, incompleteTests) {
+        const ctx = document.getElementById('testCompletionChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Completed Tests', 'Incomplete Tests'],
+                datasets: [{
+                    data: [completedTests, incompleteTests],
+                    backgroundColor: [
+                        'rgba(76, 175, 80, 0.8)',  // Softer green
+                        'rgba(255, 82, 82, 0.8)'   // Softer red
+                    ],
+                    borderColor: [
+                        'rgb(76, 175, 80)',
+                        'rgb(255, 82, 82)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Test Completion Status',
+                        font: {
+                            size: 16,
+                            weight: 'bold'
+                        },
+                        padding: {
+                            top: 10,
+                            bottom: 20
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Example usage:
+    updateTestChart(25, 15);
+</script>

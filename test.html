@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài kiểm tra</title>
+    <link rel="stylesheet" href="../menu/menu.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div id="header-container"></div>
+    
+    <div id="menu-container"></div>
+
+    <!-- Tiêu đề trang -->
+    <h1 id="main-title">DANH SÁCH BÀI KIỂM TRA</h1>
+
+    <!-- Vòng tròn loading spinner -->
+    <div id="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Bảng danh sách bài kiểm tra -->
+    <table id="test-table">
+        <thead>
+            <tr>
+                <th>TÊN MÔN HỌC</th>
+                <th>LÀM BÀI TEST</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <!-- Nạp JavaScript -->
+    <script src="../js/test.js"></script>
+    <script src="../menu/menu.js"></script>
+    <script>
+        function loadHeader() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '../header/header.html', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('header-container').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        function loadMenu() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '../menu/menu.html', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('menu-container').innerHTML = xhr.responseText;
+                    attachMenuEvents(); // Gán sự kiện cho menu sau khi nạp
+                }
+            };
+            xhr.send();
+        }
+
+        function loadFooter() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '../footer/footer.html', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('footer-container').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHeader();
+            loadMenu();
+            loadFooter();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,311 @@
+/* Thiết lập cơ bản cho mọi thiết bị */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #2B3A4E;
+    color: white;
+    height: 100vh;
+    text-align: center;
+    max-width: 100vw; /* Đảm bảo không vượt quá chiều ngang màn hình */
+    overflow-x: hidden; /* Loại bỏ thanh cuộn ngang */
+}
+
+h1 {
+    color: white;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+    max-width: 90vw; /* Giới hạn chiều rộng của tiêu đề */
+    margin: 0 auto; /* Căn giữa tiêu đề */
+}
+
+p {
+    max-width: 90vw; /* Giới hạn chiều rộng đoạn văn */
+    margin: 10px auto; /* Căn giữa đoạn văn */
+}
+
+/* Định dạng chung cho bảng */
+table {
+    width: 90vw; /* Giới hạn bảng không chiếm toàn bộ chiều ngang */
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    color: white;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Định dạng nút */
+button {
+    padding: 10px 15px;
+    background-color: #0072ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    max-width: 90vw;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Định dạng input */
+input[type="text"], input[type="password"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 90%;
+    max-width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Định dạng cho các thành phần tìm kiếm */
+#main-title {
+    font-size: 28px;
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#instruction-text {
+    color: #ccc;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#search-input {
+    width: 50%;
+    padding: 10px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+#search-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    transition: background-color 0.3s ease;
+}
+
+#search-button:hover {
+    background-color: #0056b3;
+}
+
+#employee-info {
+    margin: 20px auto;
+    text-align: center;
+}
+
+#info-table, #search-results {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+#info-table th, #search-results th, #info-table td, #search-results td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#search-results th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Định dạng cho loading spinner */
+#loading-spinner {
+    display: none; /* Ẩn đi khi không sử dụng */
+    position: fixed; /* Đặt ở giữa màn hình */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Đảm bảo nó nằm trên các phần tử khác */
+    text-align: center;
+    padding: 20px;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.info-table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.info-table th, .info-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.info-table th {
+    background-color: #f5f5f5;
+    text-align: center;
+    width: 200px;
+    color: #000;  /* Set text color to black */
+    font-weight: bold;
+}
+
+.info-table td {
+    color: #000;  /* Set text color to black */
+}
+
+#search-results {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#search-results th, #search-results td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#search-results thead th {
+    background-color: #f5f5f5;
+}
+
+#search-results th {
+    background-color: #f5f5f5;
+    text-align: center;
+    color: #000;  /* Set text color to black */
+    font-weight: bold;
+}
+
+#search-results td {
+    text-align: center;
+    color: #000;  /* Set text color to black */
+}
+
+#employee-info h2 {
+    color: #000;
+    text-align: center;
+}
+
+.search-results h2 {
+    color: #000;
+    text-align: center;
+}
+
+/* Responsive Design - Hiển thị tốt trên các thiết bị nhỏ hơn */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin: 10px auto;
+    }
+
+    button {
+        padding: 8px 12px;
+    }
+
+    table {
+        width: 95vw;
+    }
+
+    #header {
+        padding: 10px;
+    }
+
+    #search-input {
+        width: 80%;
+    }
+
+    #search-button {
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    button {
+        padding: 6px 10px;
+    }
+
+    input[type="text"], input[type="password"] {
+        width: 85%;
+    }
+
+    #search-input {
+        width: 90%;
+    }
+
+    #search-button {
+        padding: 6px 12px;
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.filters {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-group label {
+    color: #000;
+    font-weight: bold;
+}
+
+.filter-group select, .filter-group input {
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    color: #000;
+}

@@ -1,0 +1,47 @@
+/* Định dạng chung cho nút có viền */
+.button-outline {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none; /* Bỏ gạch chân */
+    color: white; /* Mặc định màu chữ trắng */
+    background-color: white; /* Màu nền trắng */
+    border: 2px solid black; /* Viền đen 2px */
+    border-radius: 10px; /* Bo góc nhẹ */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Hiệu ứng hover - khi di chuột qua nút */
+.button-outline:hover {
+    background-color: black; /* Khi hover, màu nền sẽ là đen */
+    color: white; /* Chữ vẫn là màu trắng khi hover */
+}
+
+/* Biến thể cho kích thước lớn hơn */
+.button-outline-large {
+    padding: 16px 32px;
+    font-size: 18px;
+}
+
+/* Biến thể cho kích thước nhỏ */
+.button-outline-small {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+/* Responsive cho nút */
+@media (max-width: 768px) {
+    .button-outline-large {
+        padding: 14px 28px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .button-outline-large {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+}

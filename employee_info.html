@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin nhân viên</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../menu/menu.css">
+    <link rel="stylesheet" href="../header/header.css">
+    <link rel="stylesheet" href="../footer/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div id="header-container"></div>
+    
+    <div id="menu-container"></div>
+
+    <div class="container">
+        <div id="loading-spinner" style="display: none;">
+            <div class="spinner"></div>
+        </div>
+
+        <div class="search-results">
+            <h2>Kết quả đào tạo</h2>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="subject-filter">Môn học:</label>
+                    <select id="subject-filter">
+                        <option value="">Tất cả</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="evaluation-filter">Đánh giá:</label>
+                    <select id="evaluation-filter">
+                        <option value="">Tất cả</option>
+                        <option value="Đạt">Đạt</option>
+                        <option value="Không đạt">Không đạt</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="validity-filter">Hiệu lực:</label>
+                    <select id="validity-filter">
+                        <option value="">Tất cả</option>
+                        <option value="Con han">Còn hạn</option>
+                        <option value="Het han">Hết hạn</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="date-start">Từ ngày:</label>
+                    <input type="date" id="date-start">
+                    <label for="date-end">Đến ngày:</label>
+                    <input type="date" id="date-end">
+                </div>
+            </div>
+            <table id="search-results">
+                <thead>
+                    <tr>
+                        <th>Môn học</th>
+                        <th>Lần thi</th>
+                        <th>Điểm</th>
+                        <th>Đánh giá</th>
+                        <th>Ngày thực hiện</th>
+                        <th>Hiệu lực</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script src="../js/employee_info.js"></script>
+    <script src="../menu/menu.js"></script>
+    <script>
+        function loadHeader() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '../header/header.html', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('header-container').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        function loadMenu() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '../menu/menu.html', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('menu-container').innerHTML = xhr.responseText;
+                    attachMenuEvents(); // Attach menu events after loading
+                }
+            };
+            xhr.send();
+        }
+
+        function loadFooter() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '../footer/footer.html', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('footer-container').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHeader();
+            loadMenu();
+            loadFooter();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="chart.css">
+<div class="radar-chart-container">
+    <canvas id="skillRadarChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('skillRadarChart').getContext('2d');
+    const skillRadarChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['Technical Skills', 'Communication', 'Leadership', 'Problem Solving', 'Teamwork', 'Time Management'],
+            datasets: [{
+                label: 'Employee Skills',
+                data: [85, 75, 70, 80, 90, 85],
+                backgroundColor: 'rgba(54, 162, 235, 0.4)',
+                borderColor: 'rgb(54, 162, 235)',
+                borderWidth: 2,
+                pointBackgroundColor: 'rgb(54, 162, 235)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(54, 162, 235)',
+                pointRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    },
+                    pointLabels: {
+                        font: {
+                            size: 12,
+                            weight: 'bold'
+                        }
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    ticks: {
+                        stepSize: 20
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên hệ</title>
+    <!-- Xoá dòng dưới -->
+    <!-- <link rel="stylesheet" href="../css/menu.css"> -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../header/header.css">
+    <link rel="stylesheet" href="../footer/footer.css">
+    <link rel="stylesheet" href="../menu/menu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h2 {
+            color: #344767;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+    
+    <div id="menu-container"></div>
+
+    <h2>CONTACT</h2>
+    <h2>Mọi thông tin vui lòng liên hệ Đạt Nguyễn</h2>
+    <h2>Email: dnguyentat@fmlogistic.com</h2>
+
+    <div id="footer-container"></div>
+
+    <!-- Chèn menu.js để nạp menu từ file menu.html -->
+    <script src="../menu/menu.js"></script>
+
+    <!-- Đoạn mã JavaScript để nạp menu -->
+    <script>
+        function loadMenu() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '../menu/menu.html', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('menu-container').innerHTML = xhr.responseText;
+                    attachMenuEvents(); // Gán sự kiện cho menu sau khi nạp
+                }
+            };
+            xhr.send();
+        }
+
+        function loadHeader() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '../header/header.html', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('header-container').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        function loadFooter() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '../footer/footer.html', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('footer-container').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMenu();
+            loadHeader();
+            loadFooter();
+        });
+    </script>
+</body>
+</html>

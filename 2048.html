@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: https: http:; img-src 'self' data: https: http:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https: http:;">
+    <title>2048 Game</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,400,800" rel="stylesheet">
+    <link rel="stylesheet" href="2048.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../footer/footer.css">
+    <link rel="stylesheet" href="../../menu/menu.css">
+</head>
+<body>
+    <div id="menu-container"></div>
+
+    <div class="main-container">
+        <div class="game-container">
+            <div class="game">
+                <div class="head">
+                    <div class="a">2048 <button class="info" onClick='info()'>i</button> <button id="repeat" class="info repeat" onClick='reset()'>↻</button></div>
+                    <div class="score">Score<br/><span id="value"></span></div>
+                </div>
+                <div class="description" id="description">
+                    Hướng dẫn chơi:<br/><br/>
+                    Sử dụng các phím mũi tên để trượt các ô số. <br/>
+                    Hai ô cùng giá trị trong dòng có thể được hợp nhất. Mục tiêu là hợp nhất các ô và lấy ô 2048.<br/><br/>
+                    Điểm số là tổng của các ô được hợp nhất.<br><br/>
+                    <span>_______________________________</span><br/><br/>
+                    Made by Đạt Nguyễn 12/2024
+                </div>
+                <!-- Thêm khung status để game cập nhật trạng thái thắng/thua -->
+                <div id="status"></div>
+            </div>
+        </div>
+
+        <div class="leaderboard-container">
+            <div class="top3">
+                <h2>Top 3 Players</h2>
+                <div class="top3-list">
+                    <!-- Top 3 items will be inserted here -->
+                </div>
+            </div>
+            <div class="top10">
+                <h3>All Players</h3>
+                <div class="top10-list">
+                    <!-- Top 10 items will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="leaderboard.js"></script>
+    <script src="2048.js"></script>
+    <script src="../../menu/menu.js"></script>
+    <script>
+        function loadMenu() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '../../menu/menu.html', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('menu-container').innerHTML = xhr.responseText;
+                    
+                    // Điều chỉnh đường dẫn cho menu items
+                    const menuLinks = document.querySelectorAll('.menu a:not(.logout-link)');
+                    menuLinks.forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href && href !== '#') {
+                            // Chỉ thêm ../../ vào href
+                            link.href = '../../' + href;
+                        }
+                    });
+                    
+                    // Đơn giản chỉ gắn menu events như contact.html
+                    attachMenuEvents();
+                }
+            };
+            xhr.send();
+        }
+
+        document.addEventListener('DOMContentLoaded', loadMenu);
+    </script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+/* Basic settings */
+body {
+    background-color: #fff;
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+}
+
+/* Main container */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 100vh;
+    margin: 20px auto; /* Giảm margin-top xuống */
+    padding: 20px;
+    background-color: #faf8ef;
+    position: relative;
+    z-index: 1;
+}
+
+/* Game container */
+.game-container {
+    flex: 1;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Game styling */
+.game {
+    width: 100%;
+    min-height: auto;
+    padding: 20px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Game head section */
+.head {
+    width: 400px;
+    margin: 0 auto 25px;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 70px;
+    color: #333; /* Thêm màu đen cho số 2048 */
+}
+
+/* Control buttons */
+.info, .repeat {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-weight: 100;
+    cursor: pointer;
+    border: 0;
+    background-color: #88b1ef;
+    color: #fff;
+    font-size: 20px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+    z-index: 1001;
+    transition: 0.2s all;
+}
+
+.info:hover, .repeat:hover {
+    transform: scale(1.1);
+    background-color: #6593d8;
+}
+
+/* Score display in game */
+.score {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(135deg, #bbada0, #a49588);
+    padding: 15px 25px;
+    font-size: 24px;
+    min-width: 90px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Grid and cells */
+.grid {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+    padding: 15px;
+    background: #bbada0;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 12px;
+    justify-content: center;
+}
+
+.grid_row {
+    display: contents;
+}
+
+.grid_cell {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0;
+    background: rgba(238, 228, 218, 0.35);
+    border-radius: 6px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* Tile styling */
+.tile {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    font-size: 45px; /* Tăng font size mặc định */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.15s ease-in-out;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Font size cho các giá trị khác nhau */
+.tile[data-value="2"] { background: #eee4da; color: #776e65; font-size: 55px; }
+.tile[data-value="4"] { background: #ede0c8; color: #776e65; font-size: 55px; }
+.tile[data-value="8"] { background: #f2b179; color: #f9f6f2; font-size: 55px; }
+.tile[data-value="16"] { background: #f59563; color: #f9f6f2; font-size: 50px; }
+.tile[data-value="32"] { background: #f67c5f; color: #f9f6f2; font-size: 50px; }
+.tile[data-value="64"] { background: #f65e3b; color: #f9f6f2; font-size: 50px; }
+.tile[data-value="128"] { background: #edcf72; color: #f9f6f2; font-size: 45px; }
+.tile[data-value="256"] { background: #edcc61; color: #f9f6f2; font-size: 45px; }
+.tile[data-value="512"] { background: #edc850; color: #f9f6f2; font-size: 45px; }
+.tile[data-value="1024"] { background: #edc53f; color: #f9f6f2; font-size: 35px; }
+.tile[data-value="2048"] { background: #edc22e; color: #f9f6f2; font-size: 35px; }
+
+/* Animation effects */
+.tile.merged {
+    transform: scale(1.15);
+    z-index: 200;
+}
+
+.tile.merging {
+    transform: scale(1.2);
+    z-index: 200;
+}
+
+/* Description popup */
+.description {
+    height: 250px;
+    width: 300px;
+    color: #333;
+    font-family: nunito;
+    position: absolute;
+    left: 50%;
+    top: 425px;
+    background: #fff;
+    padding: 50px;
+    border-radius: 8px;
+    z-index: 900;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    font-size: 15px;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 0.3s all;
+}
+
+.description.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Game status overlays */
+.won, .lose {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    pointer-events: none;
+    transition: 0.3s all;
+}
+
+.won {
+    background-color: rgba(237, 194, 46, 0.5);
+}
+
+.lose {
+    background-color: rgba(238, 228, 218, 0.73);
+}
+
+/* Leaderboard */
+.leaderboard-container {
+    width: 300px;
+    padding: 15px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 30px;
+    z-index: 1;
+}
+
+.leaderboard-container h2,
+.leaderboard-container h3 {
+    color: #333; /* Thêm màu đen cho tiêu đề Top Players */
+    margin-bottom: 15px;
+}
+
+/* Leaderboard entries */
+.top3-entry, .leaderboard-entry {
+    display: grid;
+    grid-template-columns: 30px 1fr 80px;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 16px;
+}
+
+.rank {
+    text-align: center;
+    color: #776e65;
+    font-weight: bold;
+}
+
+.player-name {
+    padding-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #333; /* Add dark color for player names */
+}
+
+.player-score {
+    text-align: right;
+    font-weight: bold;
+    color: #776e65;
+}
+
+.tippy-box[data-theme~="custom"] {
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .leaderboard-container {
+        width: 100%;
+        max-width: 500px;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .game {
+        width: calc(100% - 30px);
+    }
+    .head {
+        width: 100%;
+        margin: 10px auto 20px;
+    }
+    .score {
+        min-width: auto;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    .game {
+        padding: 10px;
+    }
+
+    .grid {
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .tile {
+        font-size: 35px;
+    }
+}
